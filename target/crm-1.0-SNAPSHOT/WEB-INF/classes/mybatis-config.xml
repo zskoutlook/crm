@@ -8,6 +8,7 @@
   
   <typeAliases>
   	<package name="com.demo.crm.settings.domain"/>
+    <package name="com.demo.crm.workbench.domain"/>
   </typeAliases>
   
   <environments default="development">
@@ -25,6 +26,7 @@
  
   <mappers>
       <package name="com.demo.crm.settings.dao"/>
+      <package name="com.demo.crm.workbench.dao"/>
   </mappers>
 </configuration>
 

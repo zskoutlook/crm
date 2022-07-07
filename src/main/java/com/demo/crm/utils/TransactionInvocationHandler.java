@@ -1,12 +1,12 @@
 package com.demo.crm.utils;
 
+import org.apache.ibatis.session.SqlSession;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
-import org.apache.ibatis.session.SqlSession;
-
-public class TransactionInvocationHandler implements InvocationHandler{
+public class TransactionInvocationHandler implements InvocationHandler {
 	
 	private Object target;
 	

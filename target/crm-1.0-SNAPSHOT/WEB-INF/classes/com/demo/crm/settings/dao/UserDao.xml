@@ -5,8 +5,10 @@
 
 <mapper namespace="com.demo.crm.settings.dao.UserDao">
 	
-	
-	
+	<!--User login(Map<String, Object> map);-->
+	<select id="login" resultType="User">
+        select * from tbl_user where loginAct=#{loginAct} and loginPwd=#{loginPwd}
+    </select>
 </mapper>
 
 

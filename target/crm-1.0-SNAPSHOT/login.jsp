@@ -12,8 +12,60 @@
 <script type="text/javascript" src="jquery/bootstrap_3.3.0/js/bootstrap.min.js"></script>
 	<script>
 		$(function (){
+			if(window.top!=window){
+				window.top.location=window.location;
+			}
+
+			//页面加载完,清空数据
+			$("#loginAct").val("");
+			//页面加载完，自动获取焦点
 			$("#loginAct").focus();
+
+			//点击登录触发登录
+			$("#submitBtn").click(function () {
+				login()
+
+			})
+
+			//敲键盘enter键触发登录
+			$(window).keydown(function (event){
+				if (event.keyCode == 13){
+					login()
+				}
+
+			})
 		})
+
+		function login(){
+			var loginAct = $.trim($("#loginAct").val());
+			var loginPwd = $.trim($("#loginPwd").val());
+
+			if(loginAct == "" || loginPwd == ""){
+				$("#msg").html("账号或用户名不能为空")
+
+				return false;	//强制中止方法
+			}
+
+			//取后台验证用户名、密码
+			$.ajax({
+				url:"settings/user/login.do",
+				data:{
+					"loginAct":loginAct,
+					"loginPwd":loginPwd
+				},
+				type:"post",
+				dataType:"json",
+				success:function (data) {
+					//{"success"：true/false,"msg":"xxx错了"}
+					if(data.success){
+						window.location.href = "workbench/index.jsp";
+					}else {
+						$("#msg").html(data.msg);
+					}
+				}
+			})
+
+		}
 	</script>
 </head>
 <body>
@@ -29,7 +81,7 @@
 			<div class="page-header">
 				<h1>登录</h1>
 			</div>
-			<form action="workbench/index.html" class="form-horizontal" role="form">
+			<form action="" class="form-horizontal" role="form">
 				<div class="form-group form-group-lg">
 					<div style="width: 350px;">
 						<input class="form-control" type="text" placeholder="用户名" id="loginAct">
@@ -42,7 +94,7 @@
 							<span id="msg"></span>
 						
 					</div>
-					<button type="submit" class="btn btn-primary btn-lg btn-block"  style="width: 350px; position: relative;top: 45px;">登录</button>
+					<button id="submitBtn" type="button" class="btn btn-primary btn-lg btn-block"  style="width: 350px; position: relative;top: 45px;">登录</button>
 				</div>
 			</form>
 		</div>
