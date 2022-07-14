@@ -8,13 +8,16 @@ import com.demo.crm.utils.DateTimeUtil;
 import com.demo.crm.utils.SqlSessionUtil;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UserServiceImpl implements UserService {
-    private UserDao userDao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
+    private UserDao userDao = null;
 
     @Override
     public User login(String loginAct, String loginPwd, String ip) throws LoginException {
+        userDao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
+
         Map<String,Object> map = new HashMap<>();
         map.put("loginAct",loginAct);
         map.put("loginPwd",loginPwd);
@@ -41,5 +44,12 @@ public class UserServiceImpl implements UserService {
 
 
         return user;
+    }
+
+    @Override
+    public List<User> getUserList() {
+        userDao = SqlSessionUtil.getSqlSession().getMapper(UserDao.class);
+        List<User> userList = userDao.getUserList();
+        return userList;
     }
 }

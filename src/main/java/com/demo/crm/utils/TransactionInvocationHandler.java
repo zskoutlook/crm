@@ -25,9 +25,7 @@ public class TransactionInvocationHandler implements InvocationHandler {
 		
 		try{
 			session = SqlSessionUtil.getSqlSession();
-			
 			obj = method.invoke(target, args);
-			
 			session.commit();
 		}catch(Exception e){
 			session.rollback();
